@@ -1,0 +1,9 @@
+---
+# defaults file for geekoops-matomo
+
+db_configure: false
+db_name: 'matomo'
+db_user: 'matomo'
+db_pass: 'notsecret'
+firewall_configure: true
+firewall_zone: 'public'

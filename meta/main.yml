@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  author: Felix Niederwanger
+  role_name: matomo
+  namespace: geekoops
+  description: Minimalistic matomo setup role
+  company: SUSE
+  issue_tracker_url: https://github.com/GeekOops/geekoops-matomo/issues
+
+  license: MIT
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: opensuse
+      versions:
+        - 15.4
+
+  galaxy_tags:
+    - matomo
+
+dependencies: []

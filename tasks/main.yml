@@ -1,0 +1,53 @@
+---
+# tasks file for geekoops-matomo
+
+- name: Ensure apache2 is installed
+  package:
+    name: apache2
+    state: present
+  tags: ['www']
+
+- name: Ensure MPM module "prefork" is used
+  lineinfile:
+    path: /etc/sysconfig/apache2
+    regexp: '^APACHE_MPM=".*"'
+    line: 'APACHE_MPM="prefork"'
+  notify: restart apache2
+  tags: ['www']
+
+- name: Ensure apache2 is started and enabled
+  systemd:
+    name: apache2
+    enabled: true
+    state: started
+  tags: ['www']
+
+- include_tasks: firewall.yml
+  when: firewall_configure
+
+- include_tasks: mariadb.yml
+  when: db_configure
+
+- name: Ensure the apache2 headers module is enabled
+  community.general.apache2_module:
+    name: headers
+    state: present
+  tags: ['www']
+
+- name: Ensure matomo is installed
+  zypper:
+    name: matomo
+    state: present
+    # Use the zypper module and install recommended packages (e.g. php)
+    disable_recommends: false
+  notify: restart apache2
+  tags: ['matomo']
+
+- name: Ensure access from localhost is enabled
+  # Necessary due to bsc#1209313
+  lineinfile:
+    path: /etc/apache2/conf.d/matomo.conf
+    regexp: 'Require.*host.*127\.0\.0\.1'
+    line: 'Require ip 127.0.0.1'
+  notify: restart apache2
+  tags: ['matomo']

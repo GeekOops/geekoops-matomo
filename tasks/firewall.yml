@@ -1,0 +1,12 @@
+---
+# Firewall tasks for matomo
+
+- name: Ensure http traffic is allowed
+  firewalld:
+    service: http
+    zone: "{{ firewall_zone }}"
+    permanent: true
+    state: enabled
+  notify: reload firewalld
+  when: firewall_configure
+  tags: ['firewall']

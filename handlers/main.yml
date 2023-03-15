@@ -1,0 +1,10 @@
+---
+# handlers file for geekoops-matomo
+
+- name: reload firewalld
+  shell: firewall-cmd --reload
+
+- name: restart apache2
+  systemd:
+    name: apache2
+    state: restarted

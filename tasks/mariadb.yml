@@ -1,0 +1,29 @@
+---
+# tasks for configuring MariaDB
+
+- name: Ensure MariaDB is installed
+  package:
+    name: mariadb
+    state: present
+  tags: ['db']
+
+- name: Ensure MariaDB is started and enabled
+  systemd:
+    name: mariadb
+    enabled: true
+    state: started
+  tags: ['db']
+
+- name: Ensure matomo database exists
+  community.mysql.mysql_db:
+    name: "{{db_name}}"
+    state: present
+  tags: ['db']
+
+- name: Ensure matomo user has access to database
+  community.mysql.mysql_user:
+    name: "{{db_user}}"
+    password: "{{db_pass}}"
+    priv: "{{db_name}}.*:ALL,GRANT"
+    state: present
+  tags: ['db']
