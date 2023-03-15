@@ -1,0 +1,18 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include geekoops-matomo"
+      include_role:
+        name: "geekoops-matomo"
+    ## Setup test enviroment
+    # Install and enable firewalld
+    - name: Ensure firewalld is installed
+      package:
+        name: firewalld
+        state: present
+    - name: Ensure firewalld is enabled
+      systemd:
+        name: firewalld
+        enabled: true
+        state: started

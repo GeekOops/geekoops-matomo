@@ -36,7 +36,7 @@
 
 - name: Ensure matomo is installed
   zypper:
-    name: matomo
+    name: ['matomo', 'matomo-apache']
     state: present
     # Use the zypper module and install recommended packages (e.g. php)
     disable_recommends: false
