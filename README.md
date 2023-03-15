@@ -1,6 +1,8 @@
 geekoops-matomo
 ===============
 
+[![Test deployment](https://github.com/GeekOops/geekoops-matomo/actions/workflows/CI.yml/badge.svg)](https://github.com/GeekOops/geekoops-matomo/actions/workflows/CI.yml)
+
 Minimalistic role to install `matomo` (as a system package) on an openSUSE Leap/SLES system.
 
 This role doesn't take care of AppArmor. You might need to disable AppArmor during installation.
